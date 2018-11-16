@@ -27,9 +27,12 @@ class Robinhood extends Api {
 	private function login($username, $password)
 	{
 		return $this->makeRequest(self::ENDPOINT_AUTH, [
-			'username' => (string) $username,
-			'password' => (string) $password,
-			]);
+			'username' 		=> (string) $username,
+			'password' 		=> (string) $password,
+			'grant_type' 	=> 'password',
+			'scope' 		=> 'internal',
+			'client_id' 	=> self::CLIENT_ID
+		]);
 	}
 
 
@@ -51,7 +54,7 @@ class Robinhood extends Api {
 			'time_in_force'	=> (string) ( isset($args['time']) ? $args['time'] : 'gfd' ),
 			'trigger'		=> (string) ( isset($args['trigger']) ? $args['trigger'] : 'immediate' ),
 			'type'			=> (string) ( isset($args['type']) ? $args['type'] : 'market' )
-			]);
+		]);
 	}
 
 
@@ -107,7 +110,7 @@ class Robinhood extends Api {
 	public function getAccount($account_url) {
 		return new Account(
 			$this->makeRequest($account_url)
-			);
+		);
 	}
 
 
